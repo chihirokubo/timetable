@@ -1,0 +1,32 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}授業登録{% endblock %}
+
+{% block head_extend %}
+<link href="{% static 'index.css' %}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block content %}
+<div class="title-logo">
+    <h1>最後まで諦めるなよ</h1>
+</div>
+<div class="container login-form">
+    <div class="row">
+        <div class="col-md-6 offset-md-3 form-box">
+            <form action="{% url 'app:create_class' %}" method="post">
+                {% csrf_token %}
+                <div class="error">{{ error }}</div>
+                <div class="form-group">
+                    {{ form.as_p }}
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">登録</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="mg30 back">
+    <a href="{% url 'app:index' %}" value="戻る" class="back_button_1">戻る</a>
+</div>
+{% endblock %}

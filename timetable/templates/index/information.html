@@ -1,0 +1,34 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}{{class_name}}情報一覧{% endblock %}
+
+{% block head_extend %}
+<link rel="stylesheet" href="{% static 'index.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="bg_blue">
+    <h1 class="name_title">{{class_name}}</h1>
+    <hr>
+</div>
+<form action="{% url 'app:delete' %}" method="post">
+    {% for information in informations %}
+        <div class="border-1">
+        <h2>{{ information.title }}</h2>
+        {% if information.picture %}
+        <img src='{{ MEDIA_URL }}{{information.picture}}' width=200>
+        {% endif %}
+        {% if information.comment  %}
+        <p>{{ information.comment }}</p>
+        {% endif %}
+        <input type="checkbox" name="delete_id" value="{{information.id}}">
+        </div>
+    {% endfor %}
+    {% csrf_token %}
+    <input type="submit" value="削除">
+</form>
+<h2 class="cnt"><a href="{% url 'app:upload' %}" class="upload_button_2">Upload more</a></h2>
+<div class="back">
+    <a href="{% url 'app:index' %}" value="戻る" class="back_button_1">戻る</a>
+</div>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}時間割{% endblock %}
+
+{% block head_extend %}
+<link rel="stylesheet" href="{% static 'index.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="main">
+    <table border="1" class="class_table">
+        <tr class="per5_hei">
+            <td></td>
+            <td>月</td>
+            <td>火</td>
+            <td>水</td>
+            <td>木</td>
+            <td>金</td>
+        </tr>
+        {% for classlist in classlists %}
+        <tr class="class_tr">
+            <td>{{ forloop.counter }}</td>
+            {% for myclass in classlist %}
+            <td class="class_td">
+                {% if myclass.name %}
+                <form action="{% url 'app:information' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="class_name" value="{{myclass.name}}"></input>
+                    <input type="submit" id="yes" class="class_button_1">
+                    <label for="yes">
+                        <p>{{myclass.name}}</p>
+                        <p>{{ myclass.place }}</p>
+                    </label>
+                </form>
+                </td>
+                {% endif %}
+            </td>
+            </label>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+    <div class="config">
+        <div class="config_item">
+            <a href="{% url 'app:register_class' %}" class="configbutton">授業作成</a>
+        </div>
+        <div class="config_item">
+            <a href="{% url 'app:change_class' %}" class="configbutton">授業変更</a>
+        </div>
+        <div class="config_item">
+            <a href="" class="configbutton">トレース</a>
+        </div>
+        <div class="config_item">
+            <a href="" class="configbutton">設定</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

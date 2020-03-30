@@ -1,0 +1,48 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}時間割変更{% endblock %}
+
+{% block head_extend %}
+<link rel="stylesheet" href="{% static 'index.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="main">
+    <table border="1" class="class_table">
+        <tr class="per5_hei">
+            <td></td>
+            <td>月</td>
+            <td>火</td>
+            <td>水</td>
+            <td>木</td>
+            <td>金</td>
+        </tr>
+        {% for classlist in classlists %}
+        <tr class="class_tr">
+            <td>{{ forloop.counter }}</td>
+            {% for myclass in classlist %}
+            <td class="class_td">
+                <p>{{ myclass.name }}</p>
+                <form action="{% url 'app:save_change_class' %}" method="POST">
+                <select class="select_line" name="{{ forloop.counter }}_{{ forloop.parentloop.counter }}" onchange="submit(this.form)">
+                    <option value="null">なし</option>
+                    {% for classes in allclasses %}
+                    {% if classes.name == myclass.name %}
+                    <option value="{{ classes.name }}" selected>{{ classes.name }}</option>
+                    {% else %}
+                    <option value="{{ classes.name }}">{{ classes.name }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                {% csrf_token %}
+                </form>
+            </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+    <div class="config">
+        <a href="{% url 'app:index' %}" class="change_class_submit_button">完了</input>
+    </div>
+</div>
+{% endblock %}
