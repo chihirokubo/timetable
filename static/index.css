@@ -179,3 +179,7 @@ hr{
     background-color: white;
     border-radius: 10px;
 }
+
+.day td{
+    font-size: 2em;
+}
