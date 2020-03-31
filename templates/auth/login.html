@@ -8,6 +8,10 @@
 {% endblock %}
 
 {% block content %}
+<div class="auth_header">
+    <h1 class="login_h1">ログインしてね！！</h1>
+    <hr>
+</div>
 <div class="main_form">
     <div id="form">
         <form action="{% url 'auth:login' %}" method='post'>
@@ -27,6 +31,9 @@
             <p class="submit"><input id="submit_button" type="submit" value="ログイン" /></p>
             -->
         </form>
+    </div>
+    <div class="to_register">
+        <a href="{% url 'auth:register' %}">登録ページ</a>
     </div>
 </div>
 {% endblock %}
