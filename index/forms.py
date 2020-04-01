@@ -2,6 +2,7 @@ from django import forms
 from .models import Information, User, MyClass
 
 DAYS = (
+    (None, ''),
     ('monday', '月曜日'),
     ('tuesday', '火曜日'),
     ('wednesday', '水曜日'),
@@ -10,6 +11,7 @@ DAYS = (
 )
 
 PERIODS = (
+    (None, ''),
     ('1', '1時間目'),
     ('2', '2時間目'),
     ('3', '3時間目'),
@@ -17,14 +19,54 @@ PERIODS = (
     ('5', '5時間目'),
 )
 
-
+"""
 class InformationForm(forms.ModelForm):
     class Meta:
         model = Information
         fields = ['title','picture', 'comment']
         widgets = {
             'comment': forms.Textarea(attrs={'cols': 80, 'rows': 20}),
+            'picture': forms.ClearableFileInput(attrs={'multiple': True}),
         }
+"""
+class InformationForm(forms.Form):
+    title = forms.CharField(
+        label = 'タイトル',
+        max_length = 50,
+        required = True,
+        widget = forms.TextInput,
+    )
+    pictures = forms.ImageField(
+        label = '画像',
+        required = False,
+        widget = forms.ClearableFileInput(attrs={'multiple': True}),
+    )
+    comment = forms.CharField(
+        label = 'コメント',
+        required = False,
+        widget = forms.Textarea(attrs={'cols': 80, 'rows': 20}),
+    )
+    def get_pictures(self):
+        pictures_list = []
+        for i in range(5):
+            try:
+                picture_object = self.files.getlist('pictures')
+                pictures_list.append(picture_object[i])
+            except:
+                pictures_list.append(None)
+        return pictures_list
+        """
+        for upload_file in self.files.getlist('file'):
+            picture_object = upload_file
+            pictures_list.append(picture_object)
+            file_name = default_storage.save(upload_file.name, upload_file)
+            file_path = default_storage.url(file_name)
+            url_list.append(file_path)
+        pictures_list
+        return url_list
+        """
+
+
 
 class UserForm(forms.ModelForm):
     class Meta:

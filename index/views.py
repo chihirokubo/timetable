@@ -3,7 +3,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.template import loader
 from django.http import HttpResponse
 from django.views.generic import TemplateView, RedirectView, ListView
-import sys, os
+import sys, os, shutil
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from .models import Information, MyClass, User
@@ -11,8 +11,7 @@ from .forms import InformationForm, UserForm, RegisterClassForm
 from django.views.decorators.http import require_POST, require_GET
 from django.conf import settings
 from .module import index 
-from django.urls import reverse
-from urllib.parse import urlencode
+
 
 
 
@@ -22,16 +21,14 @@ def delete(request):
     if delete_id:
         deleted_imgs = Information.objects.filter(id__in=delete_id)
         for deleted_img in deleted_imgs:
-            if deleted_img.picture.name:
-                os.remove(settings.MEDIA_ROOT + "/" + deleted_img.picture.name)
+            if deleted_img.picture1:
+                shutil.rmtree(settings.MEDIA_ROOT + "/image-" + str(deleted_img.id))
             
         Information.objects.filter(id__in=delete_id).delete()
     return redirect('app:information')
 
 def table(request):
     if not 'user_id' in request.session: return redirect('/auth/login')
-    if 'class_name' in request.session: 
-        del request.session['class_name']
     context = { 
         'classlists':index.user_object(request)
     }
@@ -106,14 +103,18 @@ def upload(request):
     class_name = request.session['class_name']
     if request.method == "POST":
         myclass = MyClass.objects.get(name=class_name)
-        form = InformationForm(request.POST, request.FILES)
-        if form.is_valid():
+        formdata = InformationForm(request.POST, request.FILES)
+        if formdata.is_valid():
+            url = index.upload_func(formdata, myclass)
+            """
+            pictures = request.FILES.getlist('picture')
             question = form.save(commit = False)
             question.my_class = myclass
             question.save()
             redirect_url = reverse('app:information')
             parameters = urlencode({'class_name': class_name})
             url = f'{redirect_url}?{parameters}'
+            """
             return redirect(url)
     else:
         form = InformationForm()

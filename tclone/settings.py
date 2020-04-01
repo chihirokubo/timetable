@@ -115,8 +115,10 @@ MEDIA_URL = '/media/'
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-ALLOWED_HOSTS = ['localhost', '.pythonanywhere.com']
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+
+#ALLOWED_HOSTS = ['localhost', '.pythonanywhere.com']
 
 STATICFILES_DIRS = [
     # [BASE_DIR]/static/を置き場所とします。(BASE_DIRはこのファイルの上部に定義済み)

@@ -15,8 +15,20 @@
     {% for information in informations %}
         <div class="border-1">
         <h2>{{ information.title }}</h2>
-        {% if information.picture %}
-        <img src='{{ MEDIA_URL }}{{information.picture}}' width=200>
+        {% if information.picture1 %}
+        <img src='{{ MEDIA_URL }}{{information.picture1}}' width=200>
+        {% endif %}
+        {% if information.picture2 %}
+        <img src='{{ MEDIA_URL }}{{information.picture2}}' width=200>
+        {% endif %}
+        {% if information.picture3 %}
+        <img src='{{ MEDIA_URL }}{{information.picture3}}' width=200>
+        {% endif %}
+        {% if information.picture4 %}
+        <img src='{{ MEDIA_URL }}{{information.picture4}}' width=200>
+        {% endif %}
+        {% if information.picture5 %}
+        <img src='{{ MEDIA_URL }}{{information.picture5}}' width=200>
         {% endif %}
         {% if information.comment  %}
         <p>{{ information.comment }}</p>

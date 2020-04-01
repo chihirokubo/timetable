@@ -1,4 +1,5 @@
 from django.db import models
+import uuid
 
 class MyClass(models.Model):
     day = models.CharField(max_length=10, null=True, blank=True)
@@ -9,15 +10,26 @@ class MyClass(models.Model):
     def __str__(self):
         return self.name
 
+
+
+def user_portfolio_directory_path(instance, filename):
+    return 'image-{0}/{1}'.format(instance.id, filename)
+
 class Information(models.Model):
-    title = models.CharField(max_length=50, null=True, blank=True)
-    picture = models.ImageField(upload_to='images/', null=True, blank=True)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    title = models.CharField(max_length=50, null=False, blank=False)
+    picture1 = models.ImageField(upload_to=user_portfolio_directory_path, null=True, blank=True)
+    picture2 = models.ImageField(upload_to=user_portfolio_directory_path, null=True, blank=True)
+    picture3 = models.ImageField(upload_to=user_portfolio_directory_path, null=True, blank=True)
+    picture4 = models.ImageField(upload_to=user_portfolio_directory_path, null=True, blank=True)
+    picture5 = models.ImageField(upload_to=user_portfolio_directory_path, null=True, blank=True)
     comment = models.CharField(max_length=255, null=True, blank=True)
     my_class = models.ForeignKey(MyClass, on_delete=models.CASCADE, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.title
+
 
 class User(models.Model):
     name = models.CharField(max_length=30, null=False)
