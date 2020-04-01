@@ -123,3 +123,16 @@ def upload(request):
         'class_name':class_name    
     }
     return render(request, 'index/upload.html', context)
+
+def trace(request):
+    if request.method == 'POST':
+        user_traced = request.POST.get('user_trace')
+        url = index.trace_user(request, user_traced)
+        return redirect(url)
+    other_users = User.objects.all()
+    user_id = request.session['user_id']
+    context = {
+        'user_id' : user_id,
+        'other_users' : other_users,
+    }
+    return render(request, 'index/trace.html', context)

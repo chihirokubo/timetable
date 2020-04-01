@@ -1,0 +1,31 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}ユーザートレース{% endblock %}
+
+{% block head_extend %}
+<link rel="stylesheet" href="{% static 'index.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="trace_header">
+    <h1>ユーザートレース</h1>
+    <hr>
+</div>
+<div class="trace_main">
+    <p>トレースしたいユーザーを選ぶどん！</p>
+    <form action="{% url 'app:trace' %}" method="POST">
+        <select class="select_line" name="user_trace">
+            {% for other_user in other_users %}
+            {% if other_user.id != user_id %}
+            <option value="{{ other_user }}" selected>{{ other_user.name }}</option>
+            {% endif %}
+            {% endfor %}
+        </select>
+        <input type="submit" value="トレーースゥ！！">
+        {% csrf_token %}
+    </form>
+</div>
+<div class="back_to_table">
+    <a href="{% url 'app:index' %}">戻る</a>
+</div>
+{% endblock %}

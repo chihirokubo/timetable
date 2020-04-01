@@ -87,3 +87,16 @@ def upload_func(formdata, myclass):
     url = f'{redirect_url}?{parameters}'
 
     return url
+
+def trace_user(request, user_traced_name):
+    user_id = request.session["user_id"]
+    user = User.objects.get(id=user_id)
+    user_traced = User.objects.get(name=user_traced_name)
+    for period in Period:
+        day_list = []
+        for day in Day:
+            day_and_period = day + '_' + period
+            value = getattr(user_traced, day_and_period)
+            setattr(user, day_and_period, value)
+    user.save()
+    return "/"
