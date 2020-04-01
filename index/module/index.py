@@ -1,4 +1,6 @@
 from ..models import User, Information, MyClass
+from django.urls import reverse
+from urllib.parse import urlencode
 
 Period = ['1', '2', '3', '4', '5']
 Day = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday']
@@ -66,3 +68,22 @@ def show_information(request, class_name):
     informations = Information.objects.filter(my_class=myclass)
     return informations
 
+def upload_func(formdata, myclass):
+    pictures_list = formdata.get_pictures()
+    formdata = formdata.cleaned_data
+    InformationData = Information(
+        title = formdata['title'],
+        comment = formdata['comment'],
+        my_class = myclass,
+        picture1 = pictures_list[0],
+        picture2 = pictures_list[1],
+        picture3 = pictures_list[2],
+        picture4 = pictures_list[3],
+        picture5 = pictures_list[4],
+    )
+    InformationData.save()
+    redirect_url = reverse('app:information')
+    parameters = urlencode({'class_name': myclass.name})
+    url = f'{redirect_url}?{parameters}'
+
+    return url
