@@ -19,16 +19,8 @@ PERIODS = (
     ('5', '5時間目'),
 )
 
-"""
-class InformationForm(forms.ModelForm):
-    class Meta:
-        model = Information
-        fields = ['title','picture', 'comment']
-        widgets = {
-            'comment': forms.Textarea(attrs={'cols': 80, 'rows': 20}),
-            'picture': forms.ClearableFileInput(attrs={'multiple': True}),
-        }
-"""
+
+
 class InformationForm(forms.Form):
     title = forms.CharField(
         label = 'タイトル',
@@ -55,16 +47,6 @@ class InformationForm(forms.Form):
             except:
                 pictures_list.append(None)
         return pictures_list
-        """
-        for upload_file in self.files.getlist('file'):
-            picture_object = upload_file
-            pictures_list.append(picture_object)
-            file_name = default_storage.save(upload_file.name, upload_file)
-            file_path = default_storage.url(file_name)
-            url_list.append(file_path)
-        pictures_list
-        return url_list
-        """
 
 
 
