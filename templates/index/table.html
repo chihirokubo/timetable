@@ -23,17 +23,18 @@
             {% for myclass in classlist %}
             <td class="class_td">
                 {% if myclass.name %}
-                <form action="{% url 'app:information' %}" method="POST">
+                <form action="{% url 'app:index' %}"　name="{{myclass.name}}" method="POST">
                     {% csrf_token %}
                     <input type="hidden" name="class_name" value="{{myclass.name}}"></input>
-                    <input type="submit" id="yes" class="class_button_1">
-                    <label for="yes">
+                    <input type="submit" name="{{myclass.name}}" id="{{myclass.name}}_id" class="class_button_1">
+                    <label for="{{myclass.name}}_id">
                         <p>{{myclass.name}}</p>
                         <p>{{ myclass.place }}</p>
                     </label>
                 </form>
-                </td>
+        
                 {% endif %}
+            </td>
             </td>
             </label>
             {% endfor %}

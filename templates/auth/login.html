@@ -14,7 +14,7 @@
 </div>
 <div class="main_form">
     <div id="form">
-        <form action="{% url 'auth:login' %}" method='post'>
+        <form id="form_login" action="{% url 'auth:login' %}" method='post'>
             {{ form.non_field_errors }}
             {% for field in form %}
             <div class="mbt20">
