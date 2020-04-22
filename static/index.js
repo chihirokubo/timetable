@@ -21,7 +21,7 @@ if (('standalone' in window.navigator) && window.navigator.standalone) {
 }
 
 console.log("テスト2");
-document.getElementById('id_pictures').addEventListener('change', function (e) {
+document.getElementById('upload-form').addEventListener('change', function (e) {
     // 1枚だけ表示する
     console.log("テスト1");
     var len = e.target.files.length;
