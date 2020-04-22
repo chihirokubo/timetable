@@ -20,8 +20,10 @@ if (('standalone' in window.navigator) && window.navigator.standalone) {
     }, false);
 }
 
+console.log("テスト2");
 document.getElementById('id_pictures').addEventListener('change', function (e) {
     // 1枚だけ表示する
+    console.log("テスト1");
     var len = e.target.files.length;
     for (var i=0; i<len; i++){
         var file = e.target.files[i];

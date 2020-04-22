@@ -36,7 +36,7 @@ class InformationForm(forms.Form):
     comment = forms.CharField(
         label = 'コメント',
         required = False,
-        widget = forms.Textarea(attrs={'cols': 80, 'rows': 20}),
+        widget = forms.Textarea(attrs={'cols': 20, 'rows': 7}),
     )
     def get_pictures(self):
         pictures_list = []
