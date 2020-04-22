@@ -21,12 +21,12 @@ if (('standalone' in window.navigator) && window.navigator.standalone) {
 }
 
 console.log("テスト2");
-document.getElementById('upload-form').addEventListener('change', function (e) {
+document.getElementById('id_pictures').onchange = function(){
     // 1枚だけ表示する
     console.log("テスト1");
-    var len = e.target.files.length;
+    var len = document.getElementById('id_picture').files.length;
     for (var i=0; i<len; i++){
-        var file = e.target.files[i];
+        var file = document.getElementById('id_picture').files[i];
         // ファイルのブラウザ上でのURLを取得する
         var blobUrl = window.URL.createObjectURL(file);
         // img要素に表示
@@ -34,7 +34,7 @@ document.getElementById('upload-form').addEventListener('change', function (e) {
         img.src = blobUrl;
         document.getElementById('file-preview').append(img);
     }
-});
+};
 
 
     // localstorageにtokenをsetする
