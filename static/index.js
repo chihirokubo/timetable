@@ -19,3 +19,37 @@ if (('standalone' in window.navigator) && window.navigator.standalone) {
         }
     }, false);
 }
+
+
+    // localstorageにtokenをsetする
+    function set() {
+
+        // Javascriptでランダムな文字列を生成する方法
+        // https://qiita.com/ryounagaoka/items/4736c225bdd86a74d59c
+        var email = document.form_login.email.value;
+
+        // ローカルストレージにtokenを保存
+        localStorage.setItem("email", email);
+    }
+
+    // localstorageにtokenをgetして、value欄に表示する
+    function get() {
+        // ローカルストレージからtokenを取得
+        var email = localStorage.getItem("email");
+
+        // token: 欄に取得したtokenを表示
+        document.getElementById("token_value").innerText = email;
+    }
+
+    // localstorageからtokenを削除する
+    function remove() {
+        // ローカルストレージからtokenを削除
+        localStorage.removeItem("token");
+
+        get();
+    }
+
+//    window.onload = function () {
+//       get();
+//    }
+
