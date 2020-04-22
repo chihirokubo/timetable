@@ -53,3 +53,17 @@ if (('standalone' in window.navigator) && window.navigator.standalone) {
 //       get();
 //    }
 
+
+document.getElementById('id_pictures').addEventListener('change', function (e) {
+    // 1枚だけ表示する
+    var len = e.target.files.length;
+    for (var i=0; i<len; i++){
+    var file = e.target.files[i];
+    // ファイルのブラウザ上でのURLを取得する
+    var blobUrl = window.URL.createObjectURL(file);
+    // img要素に表示
+    var img = Image();
+    img.src = blobUrl;
+    document.getElementById('file-preview').append(img);
+    }
+});
