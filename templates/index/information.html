@@ -12,7 +12,7 @@
     <hr>
 </div>
 <input id="search-input" type="text" placeholder="">
-<button　id="search-button">検索</button　>
+<button onclick="search()">検索</button>
 <form action="{% url 'app:delete' %}" method="post">
     {% for information in informations %}
         <div class="border-1">
