@@ -11,10 +11,12 @@
     <h1 class="name_title">{{class_name}}</h1>
     <hr>
 </div>
+<input id="search-input" type="text" placeholder="">
+<button　id="search-button">検索</button　>
 <form action="{% url 'app:delete' %}" method="post">
     {% for information in informations %}
         <div class="border-1">
-        <h2>{{ information.title }}</h2>
+        <h2 class="information-title" id="title_{{ forloop.counter }}">{{ information.title }}</h2>
         {% if information.picture1 %}
         <img src='{{ MEDIA_URL }}{{information.picture1}}' width=200>
         {% endif %}
@@ -43,4 +45,5 @@
 <div class="back">
     <a href="{% url 'app:index' %}" value="戻る" class="back_button_1">戻る</a>
 </div>
+<script type="text/javascript" src="{% static 'information.js' %}"></script>
 {% endblock %}
