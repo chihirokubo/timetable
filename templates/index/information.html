@@ -11,6 +11,8 @@
     <h1 class="name_title">{{class_name}}</h1>
     <hr>
 </div>
+<a href="{% url 'app:index' %}" value="戻る" class="back_button_1"><button>戻る</button></a>
+<a href="{% url 'app:upload' %}"><button>うｐ</button></a>
 <input id="search-input" type="text" placeholder="">
 <button onclick="search()">検索</button>
 <form action="{% url 'app:delete' %}" method="post">
@@ -41,9 +43,5 @@
     {% csrf_token %}
     <input type="submit" value="削除">
 </form>
-<h2 class="cnt"><a href="{% url 'app:upload' %}" class="upload_button_2">Upload more</a></h2>
-<div class="back">
-    <a href="{% url 'app:index' %}" value="戻る" class="back_button_1">戻る</a>
-</div>
 <script type="text/javascript" src="{% static 'information.js' %}"></script>
 {% endblock %}
