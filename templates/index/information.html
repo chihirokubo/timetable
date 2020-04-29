@@ -8,15 +8,17 @@
 
 {% block content %}
 <div class="bg_blue">
+    <a href="{% url 'app:index' %}"><button id="back-btn">戻る</button></a>
     <h1 class="name_title">{{class_name}}</h1>
     <hr>
 </div>
-<a href="{% url 'app:index' %}"><button>戻る</button></a>
-<a href="{% url 'app:upload' %}"><button>うｐ</button></a>
+<a href="{% url 'app:upload' %}"><button class="fs10">うｐ</button></a>
+<br>
 <input id="search-input" type="text" placeholder="">
-<button onclick="search()">検索</button>
+<button onclick="search()" class="fs10">検索</button>
 <form action="{% url 'app:delete' %}" method="post">
-    {% for information in informations %}
+    <input type="submit" value="削除">
+    {% for information in informations reversed %}
         <div class="border-1">
         <h2 class="information-title" id="title_{{ forloop.counter }}">{{ information.title }}</h2>
         {% if information.picture1 %}
@@ -41,7 +43,6 @@
         </div>
     {% endfor %}
     {% csrf_token %}
-    <input type="submit" value="削除">
 </form>
 <script type="text/javascript" src="{% static 'information.js' %}"></script>
 {% endblock %}

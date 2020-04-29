@@ -82,6 +82,7 @@ td{
 .class_td{
     width: 19%;
     height: 17%;
+    padding: 0;
 }
 
 .per5_hei{
@@ -247,3 +248,26 @@ hr{
     border-radius: 10px;
 }
 
+.one_class{
+    width: 100%;
+    height: 100%;
+}
+
+.one_class p{
+    margin: 0;
+    padding-top: 20%;
+}
+
+#back-btn{
+    float: left;
+    background-color: rgba(0,0,0,0);
+    border: none;
+}
+
+#search-input{
+    transform: scale(0.5);
+}
+
+.fs10{
+    font-size: 13px;
+}
