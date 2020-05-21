@@ -35,6 +35,7 @@ class User(models.Model):
     name = models.CharField(max_length=30, null=False)
     password = models.CharField(max_length=255, null=True)
     email = models.CharField(max_length=255)
+    last_login = models.DateTimeField(null=True, blank=True)
     monday_1 = models.ForeignKey(MyClass, on_delete=models.SET_NULL, null=True, related_name="mon1") 
     monday_2 = models.ForeignKey(MyClass, on_delete=models.SET_NULL, null=True, related_name="mon2")
     monday_3 = models.ForeignKey(MyClass, on_delete=models.SET_NULL, null=True, related_name="mon3")
