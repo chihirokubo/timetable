@@ -29,10 +29,6 @@ def delete(request):
 
 def table(request):
     if not 'user_id' in request.session: return redirect('/auth/login')
-    if request.method == "POST":
-        print(request.POST.get("class_name"))
-        request.session["class_name"] = request.POST.get("class_name")
-        return redirect('app:information')
     context = { 
         'classlists':index.user_object(request)
     }
@@ -90,6 +86,8 @@ commit引数はTrueまたはFalseをとります。
 
 def information_of_class(request):
     if not 'user_id' in request.session: return redirect('/auth/login')
+    if request.method == "POST":
+        request.session["class_name"] = request.POST.get("class_name")
     class_name = request.session['class_name']   
     myclass = MyClass.objects.get(name=class_name)
     informations = Information.objects.filter(my_class=myclass)

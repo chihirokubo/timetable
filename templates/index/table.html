@@ -31,7 +31,7 @@
                         <p>{{ myclass.place }}</p>
                     </div>
                 </label>
-                <form id="class-form" action="{% url 'app:index' %}"　name="{{myclass.name}}" method="POST">{% csrf_token %}</form>
+                <form id="class-form" action="{% url 'app:information' %}"　name="{{myclass.name}}" method="POST">{% csrf_token %}</form>
                 {% endif %}
             </td>
             </td>
