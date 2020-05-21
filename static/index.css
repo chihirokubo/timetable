@@ -4,7 +4,7 @@ body{
 
 input, textarea, select{
     font-size: 3.5em !important;
-    transform: scale(0.6);
+    transform: scale(0.4);
 }
 
 
