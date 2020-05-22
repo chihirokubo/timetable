@@ -40,8 +40,8 @@ def get_LETUS_news(login_info):
 
     for key in info_dic.keys():
         for i in info_dic[key]:
-            res = session.get(i['url'])
-            res.raise_for_status()
+            #res = session.get(i['url'])
+            #res.raise_for_status()
             try:
                 #res_soup = BeautifulSoup(res.text, "html.parser")
                 #a = res_soup.select_one('.page-header-headings').select_one('h1').text
