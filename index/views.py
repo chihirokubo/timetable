@@ -10,12 +10,14 @@ from .models import Information, MyClass, User
 from .forms import InformationForm, UserForm, RegisterClassForm
 from django.views.decorators.http import require_POST, require_GET
 from django.conf import settings
-from .module import index 
+from .module import index
+from .module.get_news import get_LETUS_news
 
 
 
 
 def delete(request):
+    if not 'user_id' in request.session: return redirect('/auth/login')
     class_name = request.session['class_name']
     delete_id = request.POST.getlist('delete_id')
     if delete_id:
@@ -100,6 +102,7 @@ def information_of_class(request):
 
 
 def upload(request):
+    if not 'user_id' in request.session: return redirect('/auth/login')
     class_name = request.session['class_name']
     if request.method == "POST":
         myclass = MyClass.objects.get(name=class_name)
@@ -125,6 +128,7 @@ def upload(request):
     return render(request, 'index/upload.html', context)
 
 def trace(request):
+    if not 'user_id' in request.session: return redirect('/auth/login')
     if request.method == 'POST':
         user_traced = request.POST.get('user_trace')
         url = index.trace_user(request, user_traced)
@@ -136,3 +140,21 @@ def trace(request):
         'other_users' : other_users,
     }
     return render(request, 'index/trace.html', context)
+
+def news(request):
+    if not 'user_id' in request.session: return redirect('/auth/login')
+
+    if (request.method == 'POST'):
+        login_info = {
+            'username' : request.POST.get('student_num'),
+            'password': request.POST.get('letus_password'),
+        }
+        context = {
+            'news_data' : get_LETUS_news(login_info),
+        }
+        return render(request, 'index/news.html', context)
+
+    context = {
+        'news_data' : {},
+    }
+    return render(request, 'index/news.html', context)

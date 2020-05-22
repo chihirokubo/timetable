@@ -1,0 +1,42 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}ニュース{% endblock %}
+
+{% block head_extend %}
+<link rel="stylesheet" href="{% static 'index.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="bg_blue">
+<h1 class="name_title">{{class_name}}</h1>
+<hr>
+</div>
+<div class="back">
+    <a href="{% url 'app:index' %}" value="戻る" class="back_button_1">戻る</a>
+</div>
+{% for date, news_list in news_data.items %}
+<div class="m-5">
+    <h2>日付: {{ date|date:"Y/m/d" }}</h2>
+    {% for news in news_list %}
+    <div class="m-5">
+        <h3>科目： {{ news.class_ }}</h3>
+        <h4>タイトル： {{ news.title }}</h4>
+        <h4>LETUS url： <a href="{{ news.url }}">{{ news.url }}</a></h4>
+    </div>
+    {% endfor %}
+    <hr>
+</div>
+{% endfor %}
+<form action="{% url 'app:news' %}" method="post">
+    {% csrf_token %}
+    <div class="mg30 form_title">
+        学籍番号 : <input name="student_num" type="text">
+    </div>
+    <div class="mg30 form_comment">
+        パスワード : <input name="letus_password" type="password">
+    </div>
+    <div class="mg30 form_upload">
+        <input type="submit" value="get news" class="upload_button_1">
+    </div>
+</form>
+{% endblock %}
